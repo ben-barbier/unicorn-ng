@@ -6,6 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {UnicornListComponent} from './pages/unicorn-list/unicorn-list.component';
 import {UnicornCardComponent} from './pages/unicorn-list/unicorn-card/unicorn-card.component';
 import { ErrorComponent } from './pages/error/error.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { ErrorComponent } from './pages/error/error.component';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        BrowserAnimationsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
