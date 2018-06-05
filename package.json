@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "yarn lint && ng build --prod",
+    "build": "yarn lint && ng build --prod --base-href /unicorn-ng/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

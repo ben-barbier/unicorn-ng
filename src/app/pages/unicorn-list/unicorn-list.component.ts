@@ -16,9 +16,7 @@ export class UnicornListComponent {
 
     constructor(private route: ActivatedRoute) {
 
-        debugger;
         this.route.data.subscribe((data: Data) => {
-            debugger;
             this.unicorns = data.unicornList;
             this.capacities = data.capacities;
         });

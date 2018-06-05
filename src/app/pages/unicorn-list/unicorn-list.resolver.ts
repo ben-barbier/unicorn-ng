@@ -15,16 +15,11 @@ export class UnicornListResolver implements Resolve<Unicorn[]> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Unicorn[]> {
-        debugger;
-        return this.unicornService.getAll().pipe(tap(e => {
-            debugger;
-            console.log(e);
-        }));
-        //     .pipe(
-        //     catchError((err) => {
-        //         this.router.navigate(['/error']);
-        //         return [];
-        //     })
-        // );
+        return this.unicornService.getAll().pipe(
+            catchError((err) => {
+                this.router.navigate(['/error']);
+                return [];
+            })
+        );
     }
 }
