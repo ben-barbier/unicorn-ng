@@ -3,7 +3,7 @@ import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from '@ang
 import {Unicorn} from './unicorn.model';
 import {Observable} from 'rxjs';
 import {UnicornService} from './unicorn.service';
-import {catchError} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -15,9 +15,16 @@ export class UnicornListResolver implements Resolve<Unicorn[]> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Unicorn[]> {
-        return this.unicornService.getAll().pipe(catchError((err) => {
-            this.router.navigate(['/error']);
-            return [];
+        debugger;
+        return this.unicornService.getAll().pipe(tap(e => {
+            debugger;
+            console.log(e);
         }));
+        //     .pipe(
+        //     catchError((err) => {
+        //         this.router.navigate(['/error']);
+        //         return [];
+        //     })
+        // );
     }
 }

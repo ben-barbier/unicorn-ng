@@ -1,8 +1,20 @@
-<div>{{ unicorn.id }}</div>
-<div>{{ unicorn.name }}</div>
-<div>{{ unicorn.birthyear }}</div>
-<div>{{ unicorn.weight }}</div>
-<div><img [src]="unicorn.photo" /></div>
-<div>{{ unicorn.hobbies }}</div>
-<div>{{ unicorn.capacities }}</div>
-<div>!{{ unicorn.capacitiesObject | json }}!</div>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ unicorn.name }}</mat-card-title>
+        <mat-card-subtitle>ID: {{ unicorn.id }}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="unicorn.photo">
+    <mat-card-content>
+        <div>{{ unicorn.birthyear }}</div>
+        <div>{{ unicorn.weight }}</div>
+        <div>{{ unicorn.hobbies }}</div>
+        <div>{{ unicorn.capacities }}</div>
+        <div>{{ unicorn.capacitiesObject | json }}</div>
+    </mat-card-content>
+    <mat-card-actions>
+        <!--color="primary"-->
+        <button mat-icon-button (click)="removeUnicorn(unicorn)"><mat-icon>delete</mat-icon></button>
+        <button mat-icon-button><mat-icon>edit</mat-icon></button>
+        <button mat-mini-fab [color]="isInCart?'accent':'primary'" (click)="addOrRemoveFromCart(unicorn)"><mat-icon>favorite</mat-icon></button>
+    </mat-card-actions>
+</mat-card>

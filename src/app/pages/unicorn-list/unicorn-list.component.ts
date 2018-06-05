@@ -1,27 +1,32 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Unicorn} from './unicorn.model';
-import {ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
+import {ActivatedRoute, Data} from '@angular/router';
+import {UnicornService} from './unicorn.service';
+import {Capacity} from './capacity.model';
 
 @Component({
     selector: 'uni-unicorn-list',
     templateUrl: './unicorn-list.component.html',
     styleUrls: ['./unicorn-list.component.scss']
 })
-export class UnicornListComponent implements OnInit {
+export class UnicornListComponent {
 
-    // @Input()
     public unicorns: Unicorn[];
+    public capacities: Capacity[];
 
     constructor(private route: ActivatedRoute) {
 
-        this.route.data.subscribe(data => {
-            this.unicorns = data.unicorns;
+        debugger;
+        this.route.data.subscribe((data: Data) => {
+            debugger;
+            this.unicorns = data.unicornList;
+            this.capacities = data.capacities;
         });
-
 
     }
 
-    ngOnInit() {
+    public removeUnicornFromList(unicornToRemove: Unicorn) {
+        this.unicorns = this.unicorns.filter((unicorn: Unicorn) => unicorn.id !== unicornToRemove.id);
     }
 
 }

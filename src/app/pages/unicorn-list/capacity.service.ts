@@ -17,4 +17,8 @@ export class CapacityService {
     public get(id: number): Observable<Capacity> {
         return this.http.get<Capacity>(`${this.baseUrl}capacities/${id}`);
     }
+
+    public getAll(): Observable<Capacity[]> {
+        return this.http.get<Capacity[]>(`${this.baseUrl}capacities`);
+    }
 }

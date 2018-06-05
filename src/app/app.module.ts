@@ -7,19 +7,37 @@ import {UnicornListComponent} from './pages/unicorn-list/unicorn-list.component'
 import {UnicornCardComponent} from './pages/unicorn-list/unicorn-card/unicorn-card.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+    MatBadgeModule,
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatToolbarModule
+} from '@angular/material';
+import { MainToolbarComponent } from './main-toolbar/main-toolbar.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         UnicornCardComponent,
         UnicornListComponent,
-        ErrorComponent
+        ErrorComponent,
+        MainToolbarComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatGridListModule,
+        MatIconModule,
+        MatButtonModule,
+        MatBadgeModule,
+        MatSnackBarModule
     ],
     providers: [],
     bootstrap: [AppComponent]

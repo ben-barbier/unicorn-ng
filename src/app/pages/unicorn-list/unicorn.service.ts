@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {from, Observable} from 'rxjs';
-import {filter, flatMap, map, mergeMap, toArray} from 'rxjs/operators';
+import {filter, flatMap, map, mergeMap, tap, toArray} from 'rxjs/operators';
 import {Unicorn} from './unicorn.model';
 import {Capacity} from './capacity.model';
 import {CapacityService} from './capacity.service';
@@ -59,5 +59,9 @@ export class UnicornService {
             }),
             toArray()
         );
+    }
+
+    public removeUnicorn(unicorn: Unicorn): Observable<any> {
+        return this.http.delete(`${this.baseUrl}unicorns/${unicorn.id}`);
     }
 }
