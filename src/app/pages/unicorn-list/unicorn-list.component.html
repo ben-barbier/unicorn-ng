@@ -1,5 +1,4 @@
 <uni-unicorn-card
-    *ngFor="let unicorn of unicorns"
-    [unicorn]="unicorn"
-    (deleted)="removeUnicornFromList($event)">
+    *ngFor="let unicorn of (unicorns | async)"
+    [unicorn]="unicorn">
 </uni-unicorn-card>

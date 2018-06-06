@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CartService} from '../common/cart.service';
 import {Observable} from 'rxjs';
 import {Unicorn} from '../pages/unicorn-list/unicorn.model';
+import {AppState} from '../store/app.state';
+import {select, Store} from '@ngrx/store';
 
 @Component({
     selector: 'uni-main-toolbar',
@@ -10,9 +11,9 @@ import {Unicorn} from '../pages/unicorn-list/unicorn.model';
 })
 export class MainToolbarComponent implements OnInit {
 
-    public cart: Observable<Unicorn[]> = this.cartService.cart;
+    public cart: Observable<Unicorn[]> = this.store.pipe(select('cart'));
 
-    constructor(private cartService: CartService) {
+    constructor(private store: Store<AppState>) {
     }
 
     ngOnInit() {

@@ -5,6 +5,9 @@ import {filter, flatMap, map, mergeMap, tap, toArray} from 'rxjs/operators';
 import {Unicorn} from './unicorn.model';
 import {Capacity} from './capacity.model';
 import {CapacityService} from './capacity.service';
+import {AppState} from '../../store/app.state';
+import {Store} from '@ngrx/store';
+import {EditUnicorn, RemoveUnicorn} from '../../store/actions/unicorns.actions';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +15,8 @@ import {CapacityService} from './capacity.service';
 export class UnicornService {
 
     constructor(private http: HttpClient,
-                private capacityService: CapacityService) {
+                private capacityService: CapacityService,
+                private store: Store<AppState>) {
     }
 
     private baseUrl = `http://localhost:3000/`;
@@ -62,11 +66,15 @@ export class UnicornService {
     }
 
     public removeUnicorn(unicorn: Unicorn): Observable<any> {
-        return this.http.delete(`${this.baseUrl}unicorns/${unicorn.id}`);
+        return this.http.delete(`${this.baseUrl}unicorns/${unicorn.id}`).pipe(
+            tap(() => this.store.dispatch(new RemoveUnicorn(unicorn)))
+        );
     }
 
-    public updateUnicorn(updatedUnicorn: Unicorn): Observable<any> {
-        return this.http.put(`${this.baseUrl}unicorns/${updatedUnicorn.id}`, updatedUnicorn);
+    public updateUnicorn(update: Unicorn): Observable<any> {
+        return this.http.put(`${this.baseUrl}unicorns/${update.id}`, update).pipe(
+            tap(() => this.store.dispatch(new EditUnicorn(update)))
+        );
     }
 
 }

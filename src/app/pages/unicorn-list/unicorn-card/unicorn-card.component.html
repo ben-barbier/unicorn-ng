@@ -14,6 +14,8 @@
     <mat-card-actions>
         <button mat-icon-button (click)="removeUnicorn(unicorn)"><mat-icon>delete</mat-icon></button>
         <button mat-icon-button (click)="editUnicorn(unicorn)"><mat-icon>edit</mat-icon></button>
-        <button mat-mini-fab [color]="isInCart?'accent':'primary'" (click)="addOrRemoveFromCart(unicorn)"><mat-icon>favorite</mat-icon></button>
+        <button mat-mini-fab
+                [color]="(isInCart | async)?'accent':'primary'"
+                (click)="isInCartValue?removeFromCart(unicorn):addToCart(unicorn)"><mat-icon>favorite</mat-icon></button>
     </mat-card-actions>
 </mat-card>

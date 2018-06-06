@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
 import {Unicorn} from './unicorn.model';
 import {ActivatedRoute, Data} from '@angular/router';
-import {UnicornService} from './unicorn.service';
 import {Capacity} from './capacity.model';
+import {AppState} from '../../store/app.state';
+import {Observable} from 'rxjs';
+import {select, Store} from '@ngrx/store';
 
 @Component({
     selector: 'uni-unicorn-list',
@@ -11,20 +13,16 @@ import {Capacity} from './capacity.model';
 })
 export class UnicornListComponent {
 
-    public unicorns: Unicorn[];
+    public unicorns: Observable<Unicorn[]> = this.store.pipe(select('unicorns'));
     public capacities: Capacity[];
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute,
+                private store: Store<AppState>) {
 
         this.route.data.subscribe((data: Data) => {
-            this.unicorns = data.unicornList;
             this.capacities = data.capacities;
         });
 
-    }
-
-    public removeUnicornFromList(unicornToRemove: Unicorn) {
-        this.unicorns = this.unicorns.filter((unicorn: Unicorn) => unicorn.id !== unicornToRemove.id);
     }
 
 }
