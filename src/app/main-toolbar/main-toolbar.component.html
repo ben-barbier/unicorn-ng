@@ -1,7 +1,8 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <span>Unicorn-ng</span>
+        <span translate>main-toolbar.title</span>
         <span class="spacer"></span>
+        <span (click)="setLocale('fr')">FR</span> / <span (click)="setLocale('en')">EN</span>
         <mat-icon [matBadge]="(cart | async).length" matBadgeColor="accent">favorite</mat-icon>
     </mat-toolbar-row>
 </mat-toolbar>

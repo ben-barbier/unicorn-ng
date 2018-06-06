@@ -1,8 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, LOCALE_ID, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {UnicornListComponent} from './pages/unicorn-list/unicorn-list.component';
 import {UnicornCardComponent} from './pages/unicorn-list/unicorn-card/unicorn-card.component';
 import {ErrorComponent} from './pages/error/error.component';
@@ -28,6 +28,25 @@ import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {unicornsReducer} from './store/reducers/unicornsReducer';
 import {cartReducer} from './store/reducers/cartReducer';
+import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+export function getLocale(): string {
+    // we can search on localstorage or elsewhere...
+    return 'fr';
+}
+
+export function appInitializer(translateService: TranslateService) {
+    return (() => {
+        translateService.setDefaultLang('fr');
+        translateService.use(getLocale());
+    });
+}
+
+export function translateModuleFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http, 'resources/i18n/', '.json');
+}
+
 
 @NgModule({
     declarations: [
@@ -61,9 +80,23 @@ import {cartReducer} from './store/reducers/cartReducer';
         StoreDevtoolsModule.instrument({
             maxAge: 10
         }),
-        ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (translateModuleFactory),
+                deps: [HttpClient]
+            }
+        }),
+        ServiceWorkerModule.register('./ngsw-worker.js', {enabled: environment.production})
     ],
-    providers: [],
+    providers: [
+        {provide: LOCALE_ID, useFactory: getLocale},
+        {
+            provide: APP_INITIALIZER,
+            useFactory: appInitializer, multi: true,
+            deps: [TranslateService, LOCALE_ID]
+        }
+    ],
     bootstrap: [AppComponent],
     entryComponents: [
         EditUnicornComponent
