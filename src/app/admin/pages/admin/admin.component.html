@@ -1,0 +1,8 @@
+<h1>admin</h1>
+
+<form (submit)="saveMinAge(minAge)">
+    <mat-form-field>
+        <input matInput placeholder="Min age" [(ngModel)]="minAge" name="minAge">
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary">Save</button>
+</form>

@@ -14,6 +14,7 @@ const routes: Routes = [
         }
     },
     {path: 'error', component: ErrorComponent},
+    {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
     {path: '**', redirectTo: ''}
 ];
 

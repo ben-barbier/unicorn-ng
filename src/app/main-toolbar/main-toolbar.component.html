@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <span translate>main-toolbar.title</span>
+        <span translate [routerLink]="['']">main-toolbar.title</span>
+        <span [routerLink]="['admin']">admin</span>
         <span class="spacer"></span>
         <span (click)="setLocale('fr')">FR</span> / <span (click)="setLocale('en')">EN</span>
         <mat-icon [matBadge]="(cart | async).length" matBadgeColor="accent">favorite</mat-icon>

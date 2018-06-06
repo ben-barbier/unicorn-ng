@@ -4,7 +4,7 @@ import {Unicorn} from './unicorn.model';
 import {Observable} from 'rxjs';
 import {UnicornService} from './unicorn.service';
 import {catchError, tap} from 'rxjs/operators';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {LoadUnicorns} from '../../store/actions/unicorns.actions';
 import {AppState} from '../../store/app.state';
 
@@ -19,6 +19,14 @@ export class UnicornListResolver implements Resolve<Unicorn[]> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Unicorn[]> {
+
+        this.store.pipe(
+            select('unicorn'),
+            tap(e => {
+                debugger;
+            })
+        );
+
         return this.unicornService.getAll().pipe(
             tap((unicorns: Unicorn[]) => this.store.dispatch(new LoadUnicorns(unicorns))),
             catchError((err) => {

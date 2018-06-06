@@ -6,8 +6,9 @@ import {Unicorn} from './unicorn.model';
 import {Capacity} from './capacity.model';
 import {CapacityService} from './capacity.service';
 import {AppState} from '../../store/app.state';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {EditUnicorn, RemoveUnicorn} from '../../store/actions/unicorns.actions';
+import {Config} from '../../common/config.model';
 
 @Injectable({
     providedIn: 'root'
@@ -77,4 +78,17 @@ export class UnicornService {
         );
     }
 
+    public getUnicornsToDisplay() {
+        return this.store.pipe(
+            select('unicorns'),
+            mergeMap((unicorns: Unicorn[]) => {
+                return this.store.pipe(
+                    select('config'),
+                    map((config: Config): Unicorn[] => {
+                        return unicorns.filter((unicorn: Unicorn) =>
+                            (new Date().getFullYear() - unicorn.birthyear) >= config.minAge
+                        );
+                    }));
+            }));
+    }
 }

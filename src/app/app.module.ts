@@ -30,6 +30,7 @@ import {unicornsReducer} from './store/reducers/unicornsReducer';
 import {cartReducer} from './store/reducers/cartReducer';
 import {TranslateLoader, TranslateModule, TranslateService} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {configReducer} from './store/reducers/configReducer';
 
 export function getLocale(): string {
     // we can search on localstorage or elsewhere...
@@ -76,6 +77,7 @@ export function translateModuleFactory(http: HttpClient) {
         StoreModule.forRoot({
             unicorns: unicornsReducer,
             cart: cartReducer,
+            config: configReducer,
         }),
         StoreDevtoolsModule.instrument({
             maxAge: 10
