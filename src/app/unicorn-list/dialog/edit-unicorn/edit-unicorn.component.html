@@ -1,0 +1,8 @@
+<form (submit)="updateUnicorn(unicorn)">
+    <mat-form-field>
+        <input matInput placeholder="Name" [(ngModel)]="unicorn.name" name="name">
+    </mat-form-field>
+    <br />
+    <button mat-button type="button" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+</form>

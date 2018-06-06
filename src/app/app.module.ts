@@ -10,13 +10,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
     MatBadgeModule,
     MatButtonModule,
-    MatCardModule,
+    MatCardModule, MatDialogModule, MatFormFieldModule,
     MatGridListModule,
-    MatIconModule,
+    MatIconModule, MatInputModule,
     MatSnackBarModule,
     MatToolbarModule
 } from '@angular/material';
 import { MainToolbarComponent } from './main-toolbar/main-toolbar.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import {FormsModule} from '@angular/forms';
+import { EditUnicornComponent } from './unicorn-list/dialog/edit-unicorn/edit-unicorn.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +28,8 @@ import { MainToolbarComponent } from './main-toolbar/main-toolbar.component';
         UnicornCardComponent,
         UnicornListComponent,
         ErrorComponent,
-        MainToolbarComponent
+        MainToolbarComponent,
+        EditUnicornComponent
     ],
     imports: [
         BrowserModule,
@@ -37,10 +42,18 @@ import { MainToolbarComponent } from './main-toolbar/main-toolbar.component';
         MatIconModule,
         MatButtonModule,
         MatBadgeModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        FormsModule,
+        ServiceWorkerModule.register('./ngsw-worker.js', { enabled: environment.production })
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [
+        EditUnicornComponent
+    ]
 })
 export class AppModule {
 }

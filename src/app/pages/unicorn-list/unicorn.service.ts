@@ -64,4 +64,9 @@ export class UnicornService {
     public removeUnicorn(unicorn: Unicorn): Observable<any> {
         return this.http.delete(`${this.baseUrl}unicorns/${unicorn.id}`);
     }
+
+    public updateUnicorn(updatedUnicorn: Unicorn): Observable<any> {
+        return this.http.put(`${this.baseUrl}unicorns/${updatedUnicorn.id}`, updatedUnicorn);
+    }
+
 }

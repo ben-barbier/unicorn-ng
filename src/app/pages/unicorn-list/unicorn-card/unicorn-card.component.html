@@ -12,9 +12,8 @@
         <div>{{ unicorn.capacitiesObject | json }}</div>
     </mat-card-content>
     <mat-card-actions>
-        <!--color="primary"-->
         <button mat-icon-button (click)="removeUnicorn(unicorn)"><mat-icon>delete</mat-icon></button>
-        <button mat-icon-button><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button (click)="editUnicorn(unicorn)"><mat-icon>edit</mat-icon></button>
         <button mat-mini-fab [color]="isInCart?'accent':'primary'" (click)="addOrRemoveFromCart(unicorn)"><mat-icon>favorite</mat-icon></button>
     </mat-card-actions>
 </mat-card>

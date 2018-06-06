@@ -1,9 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Unicorn} from '../unicorn.model';
 import {UnicornService} from '../unicorn.service';
 import {CartService} from '../../../common/cart.service';
-import {Observable} from 'rxjs';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
+import {EditUnicornComponent} from '../../../unicorn-list/dialog/edit-unicorn/edit-unicorn.component';
+
+import * as _ from 'lodash';
 
 @Component({
     selector: 'uni-unicorn-card',
@@ -22,7 +24,8 @@ export class UnicornCardComponent {
 
     constructor(private unicornService: UnicornService,
                 private cartService: CartService,
-                private snackBar: MatSnackBar) {
+                private snackBar: MatSnackBar,
+                private dialog: MatDialog) {
     }
 
     public addOrRemoveFromCart(unicorn: Unicorn): void {
@@ -41,6 +44,16 @@ export class UnicornCardComponent {
             this.deleted.emit(unicorn);
             this.cartService.removeFromCart(unicorn);
         });
+    }
+
+    public editUnicorn(unicorn: Unicorn) {
+        this.dialog.open(EditUnicornComponent, {data: _.cloneDeep(unicorn)}).afterClosed()
+            .subscribe((updatedUnicorn: Unicorn) => {
+                this.unicornService.updateUnicorn(updatedUnicorn).subscribe(() => {
+                    this.unicorn = updatedUnicorn;
+                    this.snackBar.open(`${unicorn.name} a été renommé en ${updatedUnicorn.name}`);
+                });
+            });
     }
 
 }
